@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<idCardList>
+    <baseURL>
+        $!{baseURL}
+    </baseURL>
+    <contextPath>http://localhost/junit</contextPath>
+#foreach($patientId in $cohort.memberIds)
+$!{fn.setPatientId($patientId)}
+<idCard>
+	<id>$!{fn.getPatientAttr('PatientIdentifier', 'identifier')}</id>
+	<name>
+		$!{fn.getPatientAttr('PersonName', 'givenName')}
+		$!{fn.getPatientAttr('PersonName', 'middleName')}
+		$!{fn.getPatientAttr('PersonName', 'familyName')}
+	</name>
+	<gender>$!{fn.getPatientAttr('Person', 'gender')}</gender>
+    #set($birthdate = $!{fn.getPatientAttr('Person', 'birthdate')})
+    #set($birthdate_estimated = $!{fn.getPatientAttr('Person', 'birthdateEstimated')})
+    #if ($birthdate)
+        #set($age = $!{fn.getAge(${birthdate})})
+        #if ($!{age.get(1)} == "days")
+            #set($age_text = "$!{age.get(0)} day-old")
+        #elseif ($!{age.get(1)} == "weeks")
+            #set($age_text = "$!{age.get(0)} week-old")
+        #elseif ($!{age.get(1)} == "months")
+            #set($age_text = "$!{age.get(0)} month-old")
+        #else
+            #set($age_text = "$!{age.get(0)} year-old")
+        #end
+    #else
+        #set($age_text = "??? year-old")
+    #end
+    #if ($!{birthdate_estimated} == 'true') #set ($approx = "~ ")
+    #else #set ($approx = " ")
+    #end
+	<birthdate estimate="${birthdate_estimated}" age="$!{age_text}">
+		 $!{approx}$!{fn.formatDate('dd-MMM-yyyy',${birthdate})}</birthdate>
+    <location>$!{fn.getPatient().getPersonAddress().getRegion()}</location>
+    <subLocation>$!{fn.getPatient().getPersonAddress().getSubregion()}</subLocation>
+    <phone>$!{fn.getPersonAttribute('Contact Phone Number')}</phone>
+    #set ($prevIds = $!{fn.getPatient().getIdentifiers()})
+    <prevIds>
+        #foreach($prevId in $prevIds)
+            ${prevId.getIdentifier()}#if($velocityCount < $prevIds.size()), #end
+        #end
+    </prevIds>
+    <lostAndFound>If found return to: Teaching and Referring Hospital, Eldoret, Kenya</lostAndFound>
+</idCard>
+#end <!-- ending patient loop -->
+</idCardList>

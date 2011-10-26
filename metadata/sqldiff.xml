@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqldiff PUBLIC "-//OpenMRS//DTD OpenMRS SQL Diff Config 1.0//EN" "http://resources.openmrs.org/doctype/sqldiff-1.0.dtd">
+
+<sqldiff version="1.0">
+	<help>
+		USE:
+			The diffs are ordered by datamodel version number.
+			The script can be run in a top down fashion and is
+			expected to not failor overwrite old data
+
+		EXPECT:
+			- "use business-database-name;" was called prior to
+			   calling this script
+	</help>
+
+    <diff>
+        <version>1.0.1</version>
+        <author>Brian McKown</author>
+        <date>November 11 2008</date>
+        <description>
+            Create idcards_template table
+        </description>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `idcards_template` (
+                  `template_id` int(11) NOT NULL auto_increment,
+                  `name` varchar(255) NOT NULL,
+                  `description` text NOT NULL,
+                  `xml` text NOT NULL,
+                  `xslt` text NOT NULL,
+                  `creator` int(11) NOT NULL default '0',
+                  `date_created` datetime NOT NULL default '0000-00-00 00:00:00',
+                  `changed_by` int(11) default NULL,
+                  `date_changed` datetime default '0000-00-00 00:00:00',
+                  PRIMARY KEY (`template_id`),
+                  KEY `idcards_template_creator` (`creator`),
+                  KEY `idcards_template_changer` (`changed_by`),
+                  CONSTRAINT `idcards_template_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+                  CONSTRAINT `user_who_changed_idcards_template` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`)
+             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </diff>
+
+    <diff>
+        <version>1.0.2</version>
+        <author>Brian McKown</author>
+        <date>March 27 2009</date>
+        <description>
+            Add type column to idcards_template
+            This column can distinguish template usages such as "Front-generate-identifiers",
+            "Back-no-generate-identifiers", "Reprint", where different web pages may show
+            only a certain type. 
+        </description>
+        <sql>
+            ALTER TABLE `idcards_template` ADD COLUMN `type` varchar(25) NULL after `name`;
+        </sql>
+    </diff>
+    
+    <diff>
+        <version>1.0.7</version>
+        <author>Ben Wolfe</author>
+        <date>May 6th 2009</date>
+        <description>
+        	Adds table to hold the randomly ordered pregenerated identifiers that are waiting to be printed
+        </description>
+        <sql>
+			    CREATE TABLE `idcards_generated_identifier` (
+				  `id` int(11) NOT NULL auto_increment,
+				  `generator` int(11) NOT NULL,
+				  `date_generated` datetime NOT NULL default '0000-00-00 00:00:00',
+				  `printed` smallint(4) NOT NULL default '0',
+				  `printed_by` int(11) default NULL,
+				  `date_printed` datetime default NULL,
+				  `printed_template_id` int(11) default NULL,
+				  PRIMARY KEY  (`id`),
+				  KEY `idcards_date_printed_idx` (`date_printed`),
+				  KEY `idcards_date_gen_idx` (`date_generated`),
+				  KEY `idcards_generator_idx` (`generator`),
+				  KEY `idcards_printer_idx` (`printed_by`),
+				  KEY `printed_status_idx` (`printed`),
+				  KEY `idcards_printed_template_idx` (`printed_template_id`),
+				  CONSTRAINT `idcards_generator` FOREIGN KEY (`generator`) REFERENCES `users` (`user_id`),
+				  CONSTRAINT `idcards_printer` FOREIGN KEY (`printed_by`) REFERENCES `users` (`user_id`),
+				  CONSTRAINT `idcards_printed_template` FOREIGN KEY (`printed_template_id`) REFERENCES `idcards_template` (`template_id`)
+				  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		 </sql>
+	</diff>
+	
+</sqldiff>

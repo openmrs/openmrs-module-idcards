@@ -1,0 +1,1396 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <person person_id="2" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" gender="M" />
+  <person_name person_id="2" person_name_id="2" preferred="1" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" given_name="John" middle_name=" " family_name="Doe" />
+  <person_name person_id="2" person_name_id="33" preferred="0" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" given_name="Some other name" middle_name=" " family_name="Last Name of other name" />
+  <patient patient_id="2" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" />
+  <patient_identifier patient_id="2" creator="1" date_created="2005-01-01 00:00:00.0" identifier="1234" identifier_type="1" preferred="1" voided="false" location_id="1" />
+  <patient_identifier patient_id="2" creator="1" date_created="2004-01-01 00:00:00.0" identifier="12345" identifier_type="1" preferred="0" voided="false" location_id="1" />
+  <patient_identifier_type patient_identifier_type_id="1" name="Test Identifier Type" description="Test description" check_digit="false" creator="1" date_created="2005-01-01 00:00:00.0" required="false" retired="false" /> 
+  <location location_id="1" name="Test Location" creator="1" date_created="2005-01-01 00:00:00.0" retired="false"/>
+
+  <person person_id="3" dead="true" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" gender="M" />
+  <person_name person_id="3" person_name_id="3" preferred="1" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" given_name="I" middle_name="am" family_name="voided" />
+  <patient patient_id="3" creator="1" date_created="2005-01-01 00:00:00.0" voided="true" />
+  <patient_identifier patient_id="3" creator="1" date_created="2005-01-01 00:00:00.0" identifier="4567" identifier_type="1" preferred="1" voided="false" location_id="1" />  
+  
+  <person person_id="4" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" gender="M" />
+  <person_name person_id="4" person_name_id="4" preferred="1" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" given_name="Jean Claude" middle_name=" " family_name="Doe" />
+  <patient patient_id="4" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" />
+  <patient_identifier patient_id="4" creator="1" date_created="2005-01-01 00:00:00.0" identifier="5634" identifier_type="1" preferred="1" voided="false" location_id="1" />
+  <person_attribute_type person_attribute_type_id="1" name="Contact Phone Number" description="The phone number to call to contact this person" format="java.lang.String" searchable="false" creator="1" date_created="2007-05-04 09:59:23.0" retired="false"/>
+  <person_attribute person_attribute_id="17" person_id="4" value="123-456-7890" person_attribute_type_id="1" creator="1" date_created="2008-08-18 12:25:57.0" voided="false"/>
+  <person_address person_address_id="2" person_id="4" preferred="false" address1="1050 Wishard Blvd." address2="RG5" city_village="Indianapolis" state_province="IN" postal_code="46202" country="USA" latitude="" longitude="" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" void_reason=""/>
+  
+  <idcards_generated_identifier id="123" generator="1" date_generated="2008-08-18 12:25:57.0" printed="1" printed_by="1" date_printed="2009-05-05 12:25:57.0" />
+  <idcards_generated_identifier id="121" generator="1" date_generated="2008-08-18 12:25:57.0" printed="1" printed_by="1" date_printed="2009-05-05 12:25:57.0" />
+  <idcards_generated_identifier id="122" generator="1" date_generated="2008-08-18 12:25:57.0" printed="1" printed_by="1" date_printed="2009-05-05 12:25:57.0" />
+  <idcards_generated_identifier id="120" generator="1" date_generated="2008-08-18 12:25:57.0" printed="1" printed_by="1" date_printed="2009-05-05 12:25:57.0" />
+  <idcards_generated_identifier id="125" generator="1" date_generated="2008-08-18 12:25:57.0" printed="1" printed_by="1" date_printed="2008-10-10 12:12:12.0" />
+  <idcards_generated_identifier id="124" generator="1" date_generated="2008-08-18 12:25:57.0" printed="1" printed_by="1" date_printed="2008-10-10 12:12:12.0" />
+
+  <idcards_generated_identifier id="128" generator="1" date_generated="2008-10-20 12:25:57.0" printed="0" />
+  <idcards_generated_identifier id="127" generator="1" date_generated="2008-10-20 12:25:57.0" printed="0" />
+  <idcards_generated_identifier id="126" generator="1" date_generated="2008-10-20 12:25:57.0" printed="0" />
+  
+  <idcards_template template_id="1" name="PATH Card Blank Demographic Side" type="Blank" description="Template to print blank front for patient demographics on PATH Card." xml="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;doc&gt;
+    &lt;!-- Important to keep baseURL element on one line with no spaces. --&gt;
+    &lt;baseURL&gt;$!{baseURL}&lt;/baseURL&gt;
+    &lt;cardName&gt;PATH Card&lt;/cardName&gt;
+    &lt;lostAndFound&gt;If found return to: Teaching and Referring Hospital, Eldoret, Kenya&lt;/lostAndFound&gt;
+    &lt;page&gt;
+        #foreach ($elem in $identifiers)
+            #if ($velocityCount &lt; $identifiers.size())
+                #set ($mod = $velocityCount % 2)
+                &lt;!-- print two columns --&gt;
+                #if ($mod == 1)
+                    #set ($left = $velocityCount - 1)
+                    &lt;row&gt;
+                        &lt;col&gt;${identifiers.get($left)}&lt;/col&gt;
+                        &lt;col&gt;${identifiers.get($velocityCount)}&lt;/col&gt;
+                    &lt;/row&gt;
+                #else
+                    &lt;!-- print one column for the last element --&gt;
+                    #if ($velocityCount == $identifiers.size() - 1)
+                        #set ($last = $identifiers.size() - 1)
+                        &lt;row&gt;
+                            &lt;col&gt;${identifiers.get($last)}&lt;/col&gt;
+                        &lt;/row&gt;
+                    #end
+                #end
+            #end
+        #end
+    &lt;/page&gt;
+&lt;/doc&gt;" xslt="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;2.0&quot;
+      xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+      xmlns:fo=&quot;http://www.w3.org/1999/XSL/Format&quot;
+      xmlns:fn=&quot;http://www.w3.org/2005/02/xpath-functions&quot;&gt;
+  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+
+  &lt;xsl:template match=&quot;/&quot;&gt;
+    &lt;fo:root&gt;
+      &lt;fo:layout-master-set&gt;
+        &lt;fo:simple-page-master master-name=&quot;simple&quot; page-height=&quot;297mm&quot; page-width=&quot;210mm&quot;
+            margin-top=&quot;0.6cm&quot; margin-left=&quot;0cm&quot; margin-right=&quot;0cm&quot; margin-bottom=&quot;0.8cm&quot;&gt;
+            &lt;fo:region-body margin-top=&quot;0.4cm&quot; margin-bottom=&quot;0cm&quot; /&gt;
+        &lt;/fo:simple-page-master&gt;
+      &lt;/fo:layout-master-set&gt;
+      &lt;fo:page-sequence master-reference=&quot;simple&quot;&gt;
+        &lt;fo:flow flow-name=&quot;xsl-region-body&quot; font-family=&quot;Helvetica&quot; font-size=&quot;8pt&quot;&gt;
+            &lt;fo:block text-align=&quot;center&quot;&gt;
+                &lt;fo:table table-layout=&quot;fixed&quot; start-indent=&quot;(100% - 168mm - 3mm) div 2&quot;
+                        table-omit-header-at-break=&quot;false&quot;&gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+
+                    &lt;fo:table-header border=&quot;solid white&quot; &gt;
+                        &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot; display-align=&quot;before&quot;&gt;
+                                    &lt;xsl:value-of select=&quot;doc/cardName&quot;/&gt; (&lt;xsl:value-of select=&quot;doc/baseURL&quot;/&gt;)
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                    Page: &lt;fo:page-number/&gt;
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                        &lt;/fo:table-row&gt;
+                    &lt;/fo:table-header&gt;
+
+                    &lt;fo:table-body&gt;
+                        &lt;xsl:variable name=&quot;baseURL&quot; select=&quot;doc/baseURL&quot;/&gt;
+                        &lt;!-- xsl:variable name=&quot;contextPath&quot; select=&quot;idCardList/contextPath&quot; --&gt;
+                        &lt;xsl:for-each select=&quot;doc/page/row&quot;&gt;
+                            &lt;fo:table-row height=&quot;52mm&quot;&gt;
+                                &lt;xsl:for-each select=&quot;col&quot;&gt;
+                                    &lt;xsl:variable name=&quot;id&quot; select=&quot;.&quot;/&gt;
+                                    &lt;fo:table-cell border=&quot;2pt solid black&quot; display-align=&quot;before&quot;&gt;
+                                        &lt;fo:block text-align=&quot;center&quot; start-indent=&quot;0mm&quot; margin-top=&quot;4mm&quot; font-weight=&quot;bold&quot;&gt;
+                                            &lt;fo:block-container&gt;
+                                                &lt;fo:block-container position=&quot;absolute&quot;&gt;
+                                                    &lt;fo:block&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                            &lt;fo:table-column column-width=&quot;100%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block color=&quot;black&quot; font-weight=&quot;bold&quot; &gt;
+                                                                            &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                                                &lt;fo:table-column column-width=&quot;10%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;30%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;10%&quot;/&gt;
+                                                                                &lt;fo:table-body&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;4.5mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    First Name
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;4.5mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    Middle Name
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;4.5mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    Family Name
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                &lt;/fo:table-body&gt;
+                                                                            &lt;/fo:table&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                        &lt;fo:block color=&quot;black&quot; font-weight=&quot;bold&quot; &gt;
+                                                                            &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                                                &lt;fo:table-column column-width=&quot;10%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;55%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;10%&quot;/&gt;
+                                                                                &lt;fo:table-body&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;4.5mm&quot;&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-size=&quot;10pt&quot;
+                                                                                                      font-weight=&quot;bold&quot;
+                                                                                                      display-align=&quot;after&quot;
+                                                                                                      margin-top=&quot;1mm&quot;&gt;
+                                                                                                &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                                                                    &lt;fo:table-column column-width=&quot;50%&quot;/&gt;
+                                                                                                    &lt;fo:table-column column-width=&quot;50%&quot;/&gt;
+                                                                                                    &lt;fo:table-body color=&quot;black&quot;&gt;
+                                                                                                        &lt;fo:table-row&gt;
+                                                                                                            &lt;fo:table-cell&gt;
+                                                                                                                &lt;fo:block text-align=&quot;center&quot;&gt;M&lt;/fo:block&gt;
+                                                                                                            &lt;/fo:table-cell&gt;
+                                                                                                            &lt;fo:table-cell&gt;
+                                                                                                                &lt;fo:block text-align=&quot;left&quot;&gt;F&lt;/fo:block&gt;
+                                                                                                            &lt;/fo:table-cell&gt;
+                                                                                                        &lt;/fo:table-row&gt;
+                                                                                                    &lt;/fo:table-body&gt;
+                                                                                                &lt;/fo:table&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;0mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    Birthdate (use ? for unknown day or month)
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;0mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    Gender (circle one)
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                &lt;/fo:table-body&gt;
+                                                                            &lt;/fo:table&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                        &lt;fo:block color=&quot;black&quot; font-weight=&quot;bold&quot;&gt;
+                                                                            &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                                                &lt;fo:table-column column-width=&quot;10%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;80%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;10%&quot;/&gt;
+                                                                                &lt;fo:table-body&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;4.5mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    Location
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;4.5mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    Sublocation
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;4.5mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    Mobile Phone
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block&gt;&lt;/fo:block&gt;&lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block font-style=&quot;italic&quot;
+                                                                                                    font-weight=&quot;bold&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;4.5mm&quot;
+                                                                                                    border-top-color=&quot;black&quot;
+                                                                                                    border-top-style=&quot;dotted&quot;
+                                                                                                    border-top-width=&quot;1pt&quot;&gt;
+                                                                                                    Previous Medical Identifier(s)
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;&lt;fo:block&gt;&lt;/fo:block&gt;&lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                &lt;/fo:table-body&gt;
+                                                                            &lt;/fo:table&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                &lt;/fo:block-container&gt;
+                                            &lt;/fo:block-container&gt;
+                                        &lt;/fo:block&gt;
+                                    &lt;/fo:table-cell&gt;
+                                &lt;/xsl:for-each&gt;
+                            &lt;/fo:table-row&gt;
+                        &lt;/xsl:for-each&gt;
+                    &lt;/fo:table-body&gt;
+                &lt;/fo:table&gt;
+            &lt;/fo:block&gt;
+        &lt;/fo:flow&gt;
+      &lt;/fo:page-sequence&gt;
+    &lt;/fo:root&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;" creator="1" date_created="2009-03-25 18:15:00.0" changed_by="1" date_changed="2009-03-25 18:15:00.0"/>
+  <idcards_template template_id="2" name="PATH Card Barcode Side" type="Generate Identifiers" description="Template to print PATH Cards barcode side." xml="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;doc&gt;
+    &lt;!-- Important to keep baseURL element on one line with no spaces. --&gt;
+    &lt;baseURL&gt;$!{baseURL}&lt;/baseURL&gt;
+    &lt;cardName&gt;PATH Card&lt;/cardName&gt;
+    &lt;lostAndFound&gt;If found return to: Teaching and Referring Hospital, Eldoret, Kenya&lt;/lostAndFound&gt;
+    &lt;page&gt;
+        #foreach ($elem in $identifiers)
+            #if ($velocityCount &lt; $identifiers.size())
+                #set ($mod = $velocityCount % 2)
+                &lt;!-- print two columns --&gt;
+                #if ($mod == 1)
+                    #set ($left = $velocityCount - 1)
+                    &lt;row&gt;
+                        &lt;col&gt;${identifiers.get($left)}&lt;/col&gt;
+                        &lt;col&gt;${identifiers.get($velocityCount)}&lt;/col&gt;
+                    &lt;/row&gt;
+                #else
+                    &lt;!-- print one column for the last element --&gt;
+                    #if ($velocityCount == $identifiers.size() - 1)
+                        #set ($last = $identifiers.size() - 1)
+                        &lt;row&gt;
+                            &lt;col&gt;${identifiers.get($last)}&lt;/col&gt;
+                        &lt;/row&gt;
+                    #end
+                #end
+            #end
+        #end
+    &lt;/page&gt;
+&lt;/doc&gt;" xslt="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;2.0&quot;
+      xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+      xmlns:fo=&quot;http://www.w3.org/1999/XSL/Format&quot;
+      xmlns:fn=&quot;http://www.w3.org/2005/02/xpath-functions&quot;&gt;
+  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+
+  &lt;xsl:template match=&quot;/&quot;&gt;
+    &lt;fo:root&gt;
+      &lt;fo:layout-master-set&gt;
+        &lt;fo:simple-page-master master-name=&quot;simple&quot; page-height=&quot;297mm&quot; page-width=&quot;210mm&quot;
+            margin-top=&quot;0.6cm&quot; margin-left=&quot;0cm&quot; margin-right=&quot;0cm&quot; margin-bottom=&quot;0.8cm&quot;&gt;
+            &lt;fo:region-body margin-top=&quot;0.4cm&quot; margin-bottom=&quot;0cm&quot; /&gt;
+        &lt;/fo:simple-page-master&gt;
+      &lt;/fo:layout-master-set&gt;
+      &lt;fo:page-sequence master-reference=&quot;simple&quot;&gt;
+        &lt;fo:flow flow-name=&quot;xsl-region-body&quot; font-family=&quot;Helvetica&quot; font-size=&quot;8pt&quot;&gt;
+            &lt;fo:block text-align=&quot;center&quot;&gt;
+                &lt;fo:table table-layout=&quot;fixed&quot; start-indent=&quot;(100% - 168mm - 3mm) div 2&quot;
+                        table-omit-header-at-break=&quot;false&quot;&gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+
+                    &lt;fo:table-header border=&quot;solid white&quot; &gt;
+                        &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot; display-align=&quot;before&quot;&gt;
+                                    &lt;xsl:value-of select=&quot;doc/cardName&quot;/&gt; (&lt;xsl:value-of select=&quot;doc/baseURL&quot;/&gt;)
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                    Page: &lt;fo:page-number/&gt;
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                        &lt;/fo:table-row&gt;
+                    &lt;/fo:table-header&gt;
+
+                    &lt;fo:table-body&gt;
+                        &lt;xsl:variable name=&quot;baseURL&quot; select=&quot;doc/baseURL&quot;/&gt;
+                        &lt;xsl:variable name=&quot;lostAndFound&quot; select=&quot;doc/lostAndFound&quot;/&gt;
+                        &lt;!-- xsl:variable name=&quot;contextPath&quot; select=&quot;idCardList/contextPath&quot; --&gt;
+                        &lt;xsl:variable name=&quot;padding&quot; select=&quot;&apos;000000000&apos;&quot;/&gt;
+                        &lt;xsl:for-each select=&quot;doc/page/row&quot;&gt;
+                            &lt;fo:table-row height=&quot;52mm&quot;&gt;
+                                &lt;xsl:for-each select=&quot;col&quot;&gt;
+                                    &lt;xsl:variable name=&quot;id&quot; select=&quot;.&quot;/&gt;
+                                    &lt;xsl:variable name=&quot;identifier&quot; select=&quot;substring(concat($padding, $id), string-length($id) - 1, string-length($padding) + 2)&quot; /&gt;
+                                    &lt;fo:table-cell border=&quot;2pt solid black&quot; display-align=&quot;before&quot;&gt;
+                                        &lt;fo:block text-align=&quot;center&quot; start-indent=&quot;0mm&quot; margin-top=&quot;0mm&quot;&gt;
+                                            &lt;fo:block-container&gt;
+                                                &lt;fo:block-container position=&quot;absolute&quot;&gt;
+                                                    &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot; &gt;
+                                                            &lt;fo:table-column column-width=&quot;40%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;20%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;40%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                                &lt;fo:table-row &gt;
+                                                                    &lt;fo:table-cell color=&quot;black&quot;
+                                                                            font-weight=&quot;bold&quot;
+                                                                            font-size=&quot;6pt&quot;
+                                                                            font-style=&quot;italic&quot;
+                                                                            border-top-color=&quot;black&quot;
+                                                                            border-top-style=&quot;dotted&quot;
+                                                                            border-top-width=&quot;1pt&quot;&gt;
+                                                                        &lt;fo:block&gt;Date Issued&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell &gt;
+                                                                            &lt;fo:block&gt;&lt;/fo:block&gt;
+                                                                        &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell color=&quot;black&quot;
+                                                                            font-weight=&quot;bold&quot;
+                                                                            font-size=&quot;6pt&quot;
+                                                                            font-style=&quot;italic&quot;
+                                                                            border-top-color=&quot;black&quot;
+                                                                            border-top-style=&quot;dotted&quot;
+                                                                            border-top-width=&quot;1pt&quot;&gt;
+                                                                        &lt;fo:block&gt;Assigning Location&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                 &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                            &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;50%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row&gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block text-align=&quot;center&quot; display-align=&quot;after&quot; margin-top=&quot;0mm&quot; margin-bottom=&quot;0mm&quot;&gt;
+                                                                            &lt;fo:external-graphic
+                                                                                    src=&quot;url(&apos;{$baseURL}/moduleResources/idcards/path_logo.png&apos;)&quot;
+                                                                                    scaling=&quot;uniform&quot;
+                                                                                    content-height=&quot;8mm&quot;
+                                                                                    content-width=&quot;scale-to-fit&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block margin-top=&quot;0mm&quot; margin-bottom=&quot;1mm&quot;&gt;
+                                                        &lt;fo:instream-foreign-object &gt;
+                                                            &lt;barcode:barcode
+                                                                xmlns:barcode=&quot;http://barcode4j.krysalis.org/ns&quot;
+                                                                message=&quot;{$identifier}&quot; orientation=&quot;0&quot;&gt;
+                                                                &lt;barcode:code39&gt;
+                                                                    &lt;barcode:height&gt;24mm&lt;/barcode:height&gt;
+                                                                    &lt;barcode:quiet-zone enabled=&quot;false&quot;&gt;&lt;/barcode:quiet-zone&gt;
+                                                                    &lt;barcode:checksum&gt;ignore&lt;/barcode:checksum&gt;
+                                                                    &lt;barcode:module-width&gt;0.30mm&lt;/barcode:module-width&gt;
+                                                                    &lt;barcode:human-readable&gt;
+                                                                      &lt;barcode:placement&gt;bottom&lt;/barcode:placement&gt;
+                                                                      &lt;barcode:font-size&gt;12pt&lt;/barcode:font-size&gt;
+                                                                    &lt;/barcode:human-readable&gt;
+                                                                &lt;/barcode:code39&gt;
+                                                                &lt;barcode:quiet-zone enabled=&quot;false&quot;/&gt;
+                                                            &lt;/barcode:barcode&gt;
+                                                        &lt;/fo:instream-foreign-object&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                                        &lt;xsl:value-of select=&quot;$lostAndFound&quot;/&gt;
+                                                    &lt;/fo:block&gt;
+                                                &lt;/fo:block-container&gt;
+                                            &lt;/fo:block-container&gt;
+                                        &lt;/fo:block&gt;
+                                    &lt;/fo:table-cell&gt;
+                                &lt;/xsl:for-each&gt;
+                            &lt;/fo:table-row&gt;
+                        &lt;/xsl:for-each&gt;
+                    &lt;/fo:table-body&gt;
+                &lt;/fo:table&gt;
+            &lt;/fo:block&gt;
+        &lt;/fo:flow&gt;
+      &lt;/fo:page-sequence&gt;
+    &lt;/fo:root&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;" creator="1" date_created="2009-03-25 18:15:00.0" changed_by="1" date_changed="2009-03-25 18:15:00.0"/>
+  <idcards_template template_id="3" name="PATH Card (MTRH) Barcode Side" type="Generate Identifiers" description="Template to print PATH Cards barcode side with MTRH logo included." xml="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;doc&gt;
+    &lt;!-- Important to keep baseURL element on one line with no spaces. --&gt;
+    &lt;baseURL&gt;$!{baseURL}&lt;/baseURL&gt;
+    &lt;cardName&gt;PATH Card&lt;/cardName&gt;
+    &lt;lostAndFound&gt;If found return to: Teaching and Referring Hospital, Eldoret, Kenya&lt;/lostAndFound&gt;
+    &lt;page&gt;
+        #foreach ($elem in $identifiers)
+            #if ($velocityCount &lt; $identifiers.size())
+                #set ($mod = $velocityCount % 2)
+                &lt;!-- print two columns --&gt;
+                #if ($mod == 1)
+                    #set ($left = $velocityCount - 1)
+                    &lt;row&gt;
+                        &lt;col&gt;${identifiers.get($left)}&lt;/col&gt;
+                        &lt;col&gt;${identifiers.get($velocityCount)}&lt;/col&gt;
+                    &lt;/row&gt;
+                #else
+                    &lt;!-- print one column for the last element --&gt;
+                    #if ($velocityCount == $identifiers.size() - 1)
+                        #set ($last = $identifiers.size() - 1)
+                        &lt;row&gt;
+                            &lt;col&gt;${identifiers.get($last)}&lt;/col&gt;
+                        &lt;/row&gt;
+                    #end
+                #end
+            #end
+        #end
+    &lt;/page&gt;
+&lt;/doc&gt;" xslt="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;2.0&quot;
+      xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+      xmlns:fo=&quot;http://www.w3.org/1999/XSL/Format&quot;
+      xmlns:fn=&quot;http://www.w3.org/2005/02/xpath-functions&quot;&gt;
+  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+
+  &lt;xsl:template match=&quot;/&quot;&gt;
+    &lt;fo:root&gt;
+      &lt;fo:layout-master-set&gt;
+        &lt;fo:simple-page-master master-name=&quot;simple&quot; page-height=&quot;297mm&quot; page-width=&quot;210mm&quot;
+            margin-top=&quot;0.6cm&quot; margin-left=&quot;0cm&quot; margin-right=&quot;0cm&quot; margin-bottom=&quot;0.8cm&quot;&gt;
+            &lt;fo:region-body margin-top=&quot;0.4cm&quot; margin-bottom=&quot;0cm&quot; /&gt;
+        &lt;/fo:simple-page-master&gt;
+      &lt;/fo:layout-master-set&gt;
+      &lt;fo:page-sequence master-reference=&quot;simple&quot;&gt;
+        &lt;fo:flow flow-name=&quot;xsl-region-body&quot; font-family=&quot;Helvetica&quot; font-size=&quot;8pt&quot;&gt;
+            &lt;fo:block text-align=&quot;center&quot;&gt;
+                &lt;fo:table table-layout=&quot;fixed&quot; start-indent=&quot;(100% - 168mm - 3mm) div 2&quot;
+                        table-omit-header-at-break=&quot;false&quot;&gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+
+                    &lt;fo:table-header border=&quot;solid white&quot; &gt;
+                        &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot; display-align=&quot;before&quot;&gt;
+                                    &lt;xsl:value-of select=&quot;doc/cardName&quot;/&gt; (&lt;xsl:value-of select=&quot;doc/baseURL&quot;/&gt;)
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                    Page: &lt;fo:page-number/&gt;
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                        &lt;/fo:table-row&gt;
+                    &lt;/fo:table-header&gt;
+
+                    &lt;fo:table-body&gt;
+                        &lt;xsl:variable name=&quot;baseURL&quot; select=&quot;doc/baseURL&quot;/&gt;
+                        &lt;xsl:variable name=&quot;lostAndFound&quot; select=&quot;doc/lostAndFound&quot;/&gt;
+                        &lt;!-- xsl:variable name=&quot;contextPath&quot; select=&quot;idCardList/contextPath&quot; --&gt;
+                        &lt;xsl:variable name=&quot;padding&quot; select=&quot;&apos;000000000&apos;&quot;/&gt;
+                        &lt;xsl:for-each select=&quot;doc/page/row&quot;&gt;
+                            &lt;fo:table-row height=&quot;52mm&quot;&gt;
+                                &lt;xsl:for-each select=&quot;col&quot;&gt;
+                                    &lt;xsl:variable name=&quot;id&quot; select=&quot;.&quot;/&gt;
+                                    &lt;xsl:variable name=&quot;identifier&quot; select=&quot;substring(concat($padding, $id), string-length($id) - 1, string-length($padding) + 2)&quot; /&gt;
+                                    &lt;fo:table-cell border=&quot;2pt solid black&quot; display-align=&quot;before&quot;&gt;
+                                        &lt;fo:block text-align=&quot;center&quot; start-indent=&quot;0mm&quot; margin-top=&quot;0mm&quot;&gt;
+                                            &lt;fo:block-container&gt;
+                                                &lt;fo:block-container position=&quot;absolute&quot;&gt;
+                                                    &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot; &gt;
+                                                            &lt;fo:table-column column-width=&quot;40%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;20%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;40%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                                &lt;fo:table-row &gt;
+                                                                    &lt;fo:table-cell color=&quot;black&quot;
+                                                                            font-weight=&quot;bold&quot;
+                                                                            font-size=&quot;6pt&quot;
+                                                                            font-style=&quot;italic&quot;
+                                                                            border-top-color=&quot;black&quot;
+                                                                            border-top-style=&quot;dotted&quot;
+                                                                            border-top-width=&quot;1pt&quot;&gt;
+                                                                        &lt;fo:block&gt;Date Issued&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell &gt;
+                                                                            &lt;fo:block&gt;&lt;/fo:block&gt;
+                                                                        &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell color=&quot;black&quot;
+                                                                            font-weight=&quot;bold&quot;
+                                                                            font-size=&quot;6pt&quot;
+                                                                            font-style=&quot;italic&quot;
+                                                                            border-top-color=&quot;black&quot;
+                                                                            border-top-style=&quot;dotted&quot;
+                                                                            border-top-width=&quot;1pt&quot;&gt;
+                                                                        &lt;fo:block&gt;Assigning Location&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                 &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                            &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;50%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row&gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block text-align=&quot;center&quot; display-align=&quot;after&quot; margin-top=&quot;0mm&quot; margin-bottom=&quot;0mm&quot;&gt;
+                                                                            &lt;fo:external-graphic
+                                                                                    src=&quot;url(&apos;{$baseURL}/moduleResources/idcards/path_logo.png&apos;)&quot;
+                                                                                    scaling=&quot;uniform&quot;
+                                                                                    content-height=&quot;8mm&quot;
+                                                                                    content-width=&quot;scale-to-fit&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block text-align=&quot;center&quot; display-align=&quot;after&quot;
+                                                                                  margin-top=&quot;0mm&quot; margin-bottom=&quot;0mm&quot; margin-left=&quot;0mm&quot;&gt;
+                                                                            &lt;fo:external-graphic
+                                                                                    src=&quot;url(&apos;{$baseURL}/moduleResources/idcards/mtrh_logo.png&apos;)&quot;
+                                                                                    scaling=&quot;uniform&quot;
+                                                                                    content-height=&quot;8mm&quot;
+                                                                                    content-width=&quot;scale-to-fit&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block margin-top=&quot;0mm&quot; margin-bottom=&quot;1mm&quot;&gt;
+                                                        &lt;fo:instream-foreign-object &gt;
+                                                            &lt;barcode:barcode
+                                                                xmlns:barcode=&quot;http://barcode4j.krysalis.org/ns&quot;
+                                                                message=&quot;{$identifier}&quot; orientation=&quot;0&quot;&gt;
+                                                                &lt;barcode:code39&gt;
+                                                                    &lt;barcode:height&gt;24mm&lt;/barcode:height&gt;
+                                                                    &lt;barcode:quiet-zone enabled=&quot;false&quot;&gt;&lt;/barcode:quiet-zone&gt;
+                                                                    &lt;barcode:checksum&gt;ignore&lt;/barcode:checksum&gt;
+                                                                    &lt;barcode:module-width&gt;0.30mm&lt;/barcode:module-width&gt;
+                                                                    &lt;barcode:human-readable&gt;
+                                                                      &lt;barcode:placement&gt;bottom&lt;/barcode:placement&gt;
+                                                                      &lt;barcode:font-size&gt;12pt&lt;/barcode:font-size&gt;
+                                                                    &lt;/barcode:human-readable&gt;
+                                                                &lt;/barcode:code39&gt;
+                                                                &lt;barcode:quiet-zone enabled=&quot;false&quot;/&gt;
+                                                            &lt;/barcode:barcode&gt;
+                                                        &lt;/fo:instream-foreign-object&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                                        &lt;xsl:value-of select=&quot;$lostAndFound&quot;/&gt;
+                                                    &lt;/fo:block&gt;
+                                                &lt;/fo:block-container&gt;
+                                            &lt;/fo:block-container&gt;
+                                        &lt;/fo:block&gt;
+                                    &lt;/fo:table-cell&gt;
+                                &lt;/xsl:for-each&gt;
+                            &lt;/fo:table-row&gt;
+                        &lt;/xsl:for-each&gt;
+                    &lt;/fo:table-body&gt;
+                &lt;/fo:table&gt;
+            &lt;/fo:block&gt;
+        &lt;/fo:flow&gt;
+      &lt;/fo:page-sequence&gt;
+    &lt;/fo:root&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;" creator="1" date_created="2009-03-25 18:15:00.0" changed_by="1" date_changed="2009-03-25 18:15:00.0"/>
+  <idcards_template template_id="4" name="PATH Card Reprint" type="Reprint" description="Template to reprint PATH Cards for MTRH" xml="&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;idCardList&gt;
+    &lt;baseURL&gt;
+        $!{baseURL}
+    &lt;/baseURL&gt;
+    &lt;contextPath&gt;$!{baseURL}&lt;/contextPath&gt;
+#foreach($patientId in $cohort.memberIds)
+$!{fn.setPatientId($patientId)}
+&lt;idCard&gt;
+	&lt;id&gt;$!{fn.getPatientAttr(&apos;PatientIdentifier&apos;, &apos;identifier&apos;)}&lt;/id&gt;
+	&lt;name&gt;
+		$!{fn.getPatientAttr(&apos;PersonName&apos;, &apos;givenName&apos;)}
+		$!{fn.getPatientAttr(&apos;PersonName&apos;, &apos;middleName&apos;)}
+		$!{fn.getPatientAttr(&apos;PersonName&apos;, &apos;familyName&apos;)}
+	&lt;/name&gt;
+	&lt;gender&gt;$!{fn.getPatientAttr(&apos;Person&apos;, &apos;gender&apos;)}&lt;/gender&gt;
+    #set($birthdate = $!{fn.getPatientAttr(&apos;Person&apos;, &apos;birthdate&apos;)})
+    #set($birthdate_estimated = $!{fn.getPatientAttr(&apos;Person&apos;, &apos;birthdateEstimated&apos;)})
+    #if ($birthdate)
+        #set($age = $!{fn.getAge(${birthdate})})
+        #if ($!{age.get(1)} == &quot;days&quot;)
+            #set($age_text = &quot;$!{age.get(0)} day-old&quot;)
+        #elseif ($!{age.get(1)} == &quot;weeks&quot;)
+            #set($age_text = &quot;$!{age.get(0)} week-old&quot;)
+        #elseif ($!{age.get(1)} == &quot;months&quot;)
+            #set($age_text = &quot;$!{age.get(0)} month-old&quot;)
+        #else
+            #set($age_text = &quot;$!{age.get(0)} year-old&quot;)
+        #end
+    #else
+        #set($age_text = &quot;??? year-old&quot;)
+    #end
+    #if ($!{birthdate_estimated} == &apos;true&apos;) #set ($approx = &quot;~ &quot;)
+    #else #set ($approx = &quot; &quot;)
+    #end
+	&lt;birthdate estimate=&quot;${birthdate_estimated}&quot; age=&quot;$!{age_text}&quot;&gt;
+		 $!{approx}$!{fn.formatDate(&apos;dd-MMM-yyyy&apos;,${birthdate})}&lt;/birthdate&gt;
+    &lt;location&gt;$!{fn.getPatient().getPersonAddress().getRegion()}&lt;/location&gt;
+    &lt;subLocation&gt;$!{fn.getPatient().getPersonAddress().getSubregion()}&lt;/subLocation&gt;
+    &lt;phone&gt;$!{fn.getPersonAttribute(&apos;Contact Phone Number&apos;)}&lt;/phone&gt;
+    #set ($prevIds = $!{fn.getPatient().getIdentifiers()})
+    &lt;prevIds&gt;
+        #foreach($prevId in $prevIds)
+            ${prevId.getIdentifier()}#if($velocityCount &lt; $prevIds.size()), #end
+        #end
+    &lt;/prevIds&gt;
+    &lt;lostAndFound&gt;If found return to: Teaching and Referring Hospital, Eldoret, Kenya&lt;/lostAndFound&gt;
+&lt;/idCard&gt;
+#end &lt;!-- ending patient loop --&gt;
+&lt;/idCardList&gt;" xslt="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE xsl:stylesheet [
+&lt;!ENTITY asymptotic-to &quot;&amp;#x2248;&quot;&gt;
+]&gt;
+&lt;xsl:stylesheet version=&quot;2.0&quot;
+      xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+      xmlns:fo=&quot;http://www.w3.org/1999/XSL/Format&quot;
+      xmlns:fn=&quot;http://www.w3.org/2005/02/xpath-functions&quot;&gt;
+  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+
+  &lt;xsl:template match=&quot;/&quot;&gt;
+    &lt;fo:root&gt;
+      &lt;fo:layout-master-set&gt;
+        &lt;fo:simple-page-master master-name=&quot;simple&quot; page-height=&quot;297mm&quot; page-width=&quot;210mm&quot;
+            margin-top=&quot;0.6cm&quot; margin-left=&quot;0cm&quot; margin-right=&quot;0cm&quot; margin-bottom=&quot;0.8cm&quot;&gt;
+            &lt;fo:region-body margin-top=&quot;0.4cm&quot; margin-bottom=&quot;0cm&quot; /&gt;
+        &lt;/fo:simple-page-master&gt;
+      &lt;/fo:layout-master-set&gt;
+      &lt;fo:page-sequence master-reference=&quot;simple&quot;&gt;
+        &lt;fo:flow flow-name=&quot;xsl-region-body&quot; font-family=&quot;Helvetica&quot; font-size=&quot;8pt&quot;&gt;
+            &lt;fo:block text-align=&quot;center&quot;&gt;
+                &lt;fo:table table-layout=&quot;fixed&quot; start-indent=&quot;(100% - 168mm - 3mm) div 2&quot;
+                        table-omit-header-at-break=&quot;false&quot; &gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+
+                    &lt;fo:table-header border=&quot;solid white&quot; &gt;
+                        &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot; display-align=&quot;before&quot;&gt;
+                                    Reprint PATH Cards
+                                      (&lt;xsl:value-of select=&quot;idCardList/contextPath&quot;/&gt;)
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                    Page: &lt;fo:page-number/&gt;
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                        &lt;/fo:table-row&gt;
+                    &lt;/fo:table-header&gt;
+
+                    &lt;fo:table-body border=&quot;2 pt solid black&quot;&gt;
+                        &lt;xsl:variable name=&quot;contextPath&quot; select=&quot;idCardList/contextPath&quot;/&gt;
+                        &lt;xsl:variable name=&quot;padding&quot; select=&quot;&apos;000000000&apos;&quot;/&gt;
+                        &lt;xsl:for-each select=&quot;idCardList/idCard&quot;&gt;
+                            &lt;xsl:variable name=&quot;id&quot; select=&quot;./id&quot;/&gt;
+                            &lt;xsl:variable name=&quot;identifier&quot; select=&quot;substring(concat($padding, $id), string-length($id) - 1, string-length($padding) + 2)&quot; /&gt;
+                            &lt;fo:table-row height=&quot;52mm&quot; border=&quot;2pt solid black&quot;&gt;
+                                    &lt;fo:table-cell border=&quot;1pt dashed grey&quot; display-align=&quot;before&quot;&gt;
+                                        &lt;fo:block text-align=&quot;center&quot; start-indent=&quot;0mm&quot; margin-top=&quot;0mm&quot; &gt;
+                                            &lt;fo:block-container&gt;
+                                                &lt;fo:block-container position=&quot;absolute&quot;&gt;
+                                                    &lt;fo:block font-size=&quot;6pt&quot;
+                                                              font-style=&quot;italic&quot;
+                                                              font-weight=&quot;bold&quot;
+                                                              color=&quot;black&quot;&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot; &gt;
+                                                            &lt;fo:table-column column-width=&quot;40%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;20%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;40%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                                &lt;fo:table-row &gt;
+                                                                    &lt;fo:table-cell font-style=&quot;italic&quot;
+                                                                            font-weight=&quot;bold&quot;
+                                                                            border-top-color=&quot;black&quot;
+                                                                            border-top-style=&quot;dotted&quot;
+                                                                            border-top-width=&quot;1pt&quot;&gt;
+                                                                        &lt;fo:block&gt;Date Issued&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell &gt;
+                                                                            &lt;fo:block&gt;&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell font-style=&quot;italic&quot;
+                                                                            font-weight=&quot;bold&quot;
+                                                                            border-top-color=&quot;black&quot;
+                                                                            border-top-style=&quot;dotted&quot;
+                                                                            border-top-width=&quot;1pt&quot;&gt;
+                                                                        &lt;fo:block&gt;Assigning Location&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                 &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                            &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;50%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row&gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block text-align=&quot;center&quot; display-align=&quot;after&quot; margin-top=&quot;0mm&quot; margin-bottom=&quot;0mm&quot;&gt;
+                                                                            &lt;fo:external-graphic
+                                                                                    src=&quot;url(&apos;{$contextPath}/moduleResources/idcards/path_logo.png&apos;)&quot;
+                                                                                    scaling=&quot;uniform&quot;
+                                                                                    content-height=&quot;8mm&quot;
+                                                                                    content-width=&quot;scale-to-fit&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block margin-top=&quot;0mm&quot; margin-bottom=&quot;1mm&quot;&gt;
+                                                        &lt;fo:instream-foreign-object &gt;
+                                                            &lt;barcode:barcode
+                                                                xmlns:barcode=&quot;http://barcode4j.krysalis.org/ns&quot;
+                                                                message=&quot;{$identifier}&quot; orientation=&quot;0&quot;&gt;
+                                                                &lt;barcode:code39&gt;
+                                                                    &lt;barcode:height&gt;24mm&lt;/barcode:height&gt;
+                                                                    &lt;barcode:quiet-zone enabled=&quot;false&quot;&gt;&lt;/barcode:quiet-zone&gt;
+                                                                    &lt;barcode:checksum&gt;ignore&lt;/barcode:checksum&gt;
+                                                                    &lt;barcode:module-width&gt;0.30mm&lt;/barcode:module-width&gt;
+                                                                    &lt;barcode:human-readable&gt;
+                                                                      &lt;barcode:placement&gt;bottom&lt;/barcode:placement&gt;
+                                                                      &lt;barcode:font-size&gt;12pt&lt;/barcode:font-size&gt;
+                                                                    &lt;/barcode:human-readable&gt;
+                                                                &lt;/barcode:code39&gt;
+                                                                &lt;barcode:quiet-zone enabled=&quot;false&quot;/&gt;
+                                                            &lt;/barcode:barcode&gt;
+                                                        &lt;/fo:instream-foreign-object&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                                        &lt;xsl:value-of select=&quot;lostAndFound&quot;/&gt;
+                                                    &lt;/fo:block&gt;
+                                                &lt;/fo:block-container&gt;
+                                            &lt;/fo:block-container&gt;
+                                        &lt;/fo:block&gt;
+                                    &lt;/fo:table-cell&gt;
+                                    &lt;fo:table-cell border=&quot;1pt dashed grey&quot; display-align=&quot;before&quot;&gt;
+                                        &lt;fo:block text-align=&quot;center&quot; start-indent=&quot;0mm&quot; margin-top=&quot;5mm&quot;&gt;
+                                            &lt;fo:block-container&gt;
+                                                &lt;fo:block-container position=&quot;absolute&quot;&gt;
+                                                    &lt;fo:block&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                            &lt;fo:table-column column-width=&quot;100%&quot;/&gt;
+                                                            &lt;fo:table-body display-align=&quot;center&quot;&gt;
+                                                                &lt;fo:table-row&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block text-align=&quot;center&quot; display-align=&quot;center&quot;&gt;
+                                                                            &lt;fo:external-graphic
+                                                                                    src=&quot;url(&apos;{$contextPath}/moduleResources/idcards/path_logo.png&apos;)&quot;
+                                                                                    scaling=&quot;uniform&quot;
+                                                                                    content-height=&quot;12mm&quot;
+                                                                                    content-width=&quot;scale-to-fit&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                        &lt;fo:block font-weight=&quot;bold&quot; font-size=&quot;12pt&quot;&gt;
+                                                                            &lt;xsl:value-of select=&quot;name&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                        &lt;fo:block font-weight=&quot;bold&quot; font-size=&quot;12pt&quot; &gt;
+                                                                            &lt;xsl:value-of select=&quot;id&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                       &lt;fo:block font-size=&quot;8pt&quot; font-weight=&quot;bold&quot;&gt;
+                                                                            &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                                                &lt;fo:table-column column-width=&quot;30%&quot; /&gt;
+                                                                                &lt;fo:table-column column-width=&quot;30%&quot; /&gt;
+                                                                                &lt;fo:table-column column-width=&quot;12%&quot; /&gt;
+                                                                                &lt;fo:table-column column-width=&quot;28%&quot; /&gt;
+                                                                                &lt;fo:table-body&gt;
+                                                                                    &lt;fo:table-row height=&quot;3.5mm&quot;&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Birthdate:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;birthdate&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Gender:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;gender&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                &lt;/fo:table-body&gt;
+                                                                            &lt;/fo:table&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                        &lt;fo:block font-size=&quot;8pt&quot; font-weight=&quot;bold&quot; display-align=&quot;center&quot;&gt;
+                                                                            &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                                                &lt;fo:table-column column-width=&quot;30%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;70%&quot;/&gt;
+                                                                                &lt;fo:table-body&gt;
+                                                                                    &lt;fo:table-row height=&quot;3.5mm&quot;&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Location:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-top=&quot;0mm&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;location&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Sublocation:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;subLocation&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row height=&quot;3.5mm&quot;&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Mobile Phone:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;phone&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row height=&quot;3.5mm&quot;&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Previous Medical Identifier(s):
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;2mm&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                            &lt;xsl:value-of select=&quot;prevIds&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                &lt;/fo:table-body&gt;
+                                                                            &lt;/fo:table&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                &lt;/fo:block-container&gt;
+                                            &lt;/fo:block-container&gt;
+                                        &lt;/fo:block&gt;
+                                    &lt;/fo:table-cell&gt;
+                            &lt;/fo:table-row&gt;
+                        &lt;/xsl:for-each&gt;
+                    &lt;/fo:table-body&gt;
+                &lt;/fo:table&gt;
+            &lt;/fo:block&gt;
+        &lt;/fo:flow&gt;
+      &lt;/fo:page-sequence&gt;
+    &lt;/fo:root&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;" creator="1" date_created="2009-03-25 18:15:00.0" changed_by="1" date_changed="2009-03-25 18:15:00.0"/>
+  <idcards_template template_id="5" name="PATH Card (MTRH) Reprint" type="Reprint" description="Template to reprint PATH Cards for MTRH" xml="&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;idCardList&gt;
+    &lt;baseURL&gt;
+        $!{baseURL}
+    &lt;/baseURL&gt;
+    &lt;contextPath&gt;$!{baseURL}&lt;/contextPath&gt;
+#foreach($patientId in $cohort.memberIds)
+$!{fn.setPatientId($patientId)}
+&lt;idCard&gt;
+	&lt;id&gt;$!{fn.getPatientAttr(&apos;PatientIdentifier&apos;, &apos;identifier&apos;)}&lt;/id&gt;
+	&lt;name&gt;
+		$!{fn.getPatientAttr(&apos;PersonName&apos;, &apos;givenName&apos;)}
+		$!{fn.getPatientAttr(&apos;PersonName&apos;, &apos;middleName&apos;)}
+		$!{fn.getPatientAttr(&apos;PersonName&apos;, &apos;familyName&apos;)}
+	&lt;/name&gt;
+	&lt;gender&gt;$!{fn.getPatientAttr(&apos;Person&apos;, &apos;gender&apos;)}&lt;/gender&gt;
+    #set($birthdate = $!{fn.getPatientAttr(&apos;Person&apos;, &apos;birthdate&apos;)})
+    #set($birthdate_estimated = $!{fn.getPatientAttr(&apos;Person&apos;, &apos;birthdateEstimated&apos;)})
+    #if ($birthdate)
+        #set($age = $!{fn.getAge(${birthdate})})
+        #if ($!{age.get(1)} == &quot;days&quot;)
+            #set($age_text = &quot;$!{age.get(0)} day-old&quot;)
+        #elseif ($!{age.get(1)} == &quot;weeks&quot;)
+            #set($age_text = &quot;$!{age.get(0)} week-old&quot;)
+        #elseif ($!{age.get(1)} == &quot;months&quot;)
+            #set($age_text = &quot;$!{age.get(0)} month-old&quot;)
+        #else
+            #set($age_text = &quot;$!{age.get(0)} year-old&quot;)
+        #end
+    #else
+        #set($age_text = &quot;??? year-old&quot;)
+    #end
+    #if ($!{birthdate_estimated} == &apos;true&apos;) #set ($approx = &quot;~ &quot;)
+    #else #set ($approx = &quot; &quot;)
+    #end
+	&lt;birthdate estimate=&quot;${birthdate_estimated}&quot; age=&quot;$!{age_text}&quot;&gt;
+		 $!{approx}$!{fn.formatDate(&apos;dd-MMM-yyyy&apos;,${birthdate})}&lt;/birthdate&gt;
+    &lt;location&gt;$!{fn.getPatient().getPersonAddress().getRegion()}&lt;/location&gt;
+    &lt;subLocation&gt;$!{fn.getPatient().getPersonAddress().getSubregion()}&lt;/subLocation&gt;
+    &lt;phone&gt;$!{fn.getPersonAttribute(&apos;Contact Phone Number&apos;)}&lt;/phone&gt;
+    #set ($prevIds = $!{fn.getPatient().getIdentifiers()})
+    &lt;prevIds&gt;
+        #foreach($prevId in $prevIds)
+            ${prevId.getIdentifier()}#if($velocityCount &lt; $prevIds.size()), #end
+        #end
+    &lt;/prevIds&gt;
+    &lt;lostAndFound&gt;If found return to: Teaching and Referring Hospital, Eldoret, Kenya&lt;/lostAndFound&gt;
+&lt;/idCard&gt;
+#end &lt;!-- ending patient loop --&gt;
+&lt;/idCardList&gt;" xslt="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE xsl:stylesheet [
+&lt;!ENTITY asymptotic-to &quot;&amp;#x2248;&quot;&gt;
+]&gt;
+&lt;xsl:stylesheet version=&quot;2.0&quot;
+      xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+      xmlns:fo=&quot;http://www.w3.org/1999/XSL/Format&quot;
+      xmlns:fn=&quot;http://www.w3.org/2005/02/xpath-functions&quot;&gt;
+  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+
+  &lt;xsl:template match=&quot;/&quot;&gt;
+    &lt;fo:root&gt;
+      &lt;fo:layout-master-set&gt;
+        &lt;fo:simple-page-master master-name=&quot;simple&quot; page-height=&quot;297mm&quot; page-width=&quot;210mm&quot;
+            margin-top=&quot;0.6cm&quot; margin-left=&quot;0cm&quot; margin-right=&quot;0cm&quot; margin-bottom=&quot;0.8cm&quot;&gt;
+            &lt;fo:region-body margin-top=&quot;0.4cm&quot; margin-bottom=&quot;0cm&quot; /&gt;
+        &lt;/fo:simple-page-master&gt;
+      &lt;/fo:layout-master-set&gt;
+      &lt;fo:page-sequence master-reference=&quot;simple&quot;&gt;
+        &lt;fo:flow flow-name=&quot;xsl-region-body&quot; font-family=&quot;Helvetica&quot; font-size=&quot;8pt&quot;&gt;
+            &lt;fo:block text-align=&quot;center&quot;&gt;
+                &lt;fo:table table-layout=&quot;fixed&quot; start-indent=&quot;(100% - 168mm - 3mm) div 2&quot;
+                        table-omit-header-at-break=&quot;false&quot; &gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+                    &lt;fo:table-column column-width=&quot;84mm&quot;/&gt;
+
+                    &lt;fo:table-header border=&quot;solid white&quot; &gt;
+                        &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot; display-align=&quot;before&quot;&gt;
+                                    Reprint Path Cards
+                                      (&lt;xsl:value-of select=&quot;idCardList/contextPath&quot;/&gt;)
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                            &lt;fo:table-cell&gt;
+                                &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                    Page: &lt;fo:page-number/&gt;
+                                &lt;/fo:block&gt;
+                            &lt;/fo:table-cell&gt;
+                        &lt;/fo:table-row&gt;
+                    &lt;/fo:table-header&gt;
+
+                    &lt;fo:table-body border=&quot;2 pt solid black&quot;&gt;
+                        &lt;xsl:variable name=&quot;contextPath&quot; select=&quot;idCardList/contextPath&quot;/&gt;
+                        &lt;xsl:variable name=&quot;padding&quot; select=&quot;&apos;000000000&apos;&quot;/&gt;
+                        &lt;xsl:for-each select=&quot;idCardList/idCard&quot;&gt;
+                            &lt;xsl:variable name=&quot;id&quot; select=&quot;./id&quot;/&gt;
+                            &lt;xsl:variable name=&quot;identifier&quot; select=&quot;substring(concat($padding, $id), string-length($id) - 1, string-length($padding) + 2)&quot; /&gt;
+                            &lt;fo:table-row height=&quot;52mm&quot; border=&quot;2pt solid black&quot;&gt;
+                                    &lt;fo:table-cell border=&quot;1pt dashed grey&quot; display-align=&quot;before&quot;&gt;
+                                        &lt;fo:block text-align=&quot;center&quot; start-indent=&quot;0mm&quot; margin-top=&quot;0mm&quot; &gt;
+                                            &lt;fo:block-container&gt;
+                                                &lt;fo:block-container position=&quot;absolute&quot;&gt;
+                                                    &lt;fo:block font-size=&quot;6pt&quot;
+                                                              font-style=&quot;italic&quot;
+                                                              font-weight=&quot;bold&quot;
+                                                              color=&quot;black&quot;&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot; &gt;
+                                                            &lt;fo:table-column column-width=&quot;40%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;20%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;40%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row height=&quot;6mm&quot; &gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                                &lt;fo:table-row &gt;
+                                                                    &lt;fo:table-cell font-style=&quot;italic&quot;
+                                                                            font-weight=&quot;bold&quot;
+                                                                            border-top-color=&quot;black&quot;
+                                                                            border-top-style=&quot;dotted&quot;
+                                                                            border-top-width=&quot;1pt&quot;&gt;
+                                                                        &lt;fo:block&gt;Date Issued&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell &gt;
+                                                                            &lt;fo:block&gt;&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell font-style=&quot;italic&quot;
+                                                                            font-weight=&quot;bold&quot;
+                                                                            border-top-color=&quot;black&quot;
+                                                                            border-top-style=&quot;dotted&quot;
+                                                                            border-top-width=&quot;1pt&quot;&gt;
+                                                                        &lt;fo:block&gt;Assigning Location&lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                 &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                            &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;50%&quot;/&gt;
+                                                            &lt;fo:table-column column-width=&quot;25%&quot;/&gt;
+                                                            &lt;fo:table-body&gt;
+                                                                &lt;fo:table-row&gt;
+                                                                    &lt;fo:table-cell&gt;&lt;fo:block/&gt;&lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block text-align=&quot;center&quot; display-align=&quot;after&quot; margin-top=&quot;0mm&quot; margin-bottom=&quot;0mm&quot;&gt;
+                                                                            &lt;fo:external-graphic
+                                                                                    src=&quot;url(&apos;{$contextPath}/moduleResources/idcards/path_logo.png&apos;)&quot;
+                                                                                    scaling=&quot;uniform&quot;
+                                                                                    content-height=&quot;8mm&quot;
+                                                                                    content-width=&quot;scale-to-fit&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block text-align=&quot;center&quot; display-align=&quot;after&quot;
+                                                                                  margin-top=&quot;0mm&quot; margin-bottom=&quot;0mm&quot; margin-left=&quot;0mm&quot;&gt;
+                                                                            &lt;fo:external-graphic
+                                                                                    src=&quot;url(&apos;{$contextPath}/moduleResources/idcards/mtrh_logo.png&apos;)&quot;
+                                                                                    scaling=&quot;uniform&quot;
+                                                                                    content-height=&quot;8mm&quot;
+                                                                                    content-width=&quot;scale-to-fit&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block margin-top=&quot;0mm&quot; margin-bottom=&quot;1mm&quot;&gt;
+                                                        &lt;fo:instream-foreign-object &gt;
+                                                            &lt;barcode:barcode
+                                                                xmlns:barcode=&quot;http://barcode4j.krysalis.org/ns&quot;
+                                                                message=&quot;{$identifier}&quot; orientation=&quot;0&quot;&gt;
+                                                                &lt;barcode:code39&gt;
+                                                                    &lt;barcode:height&gt;24mm&lt;/barcode:height&gt;
+                                                                    &lt;barcode:quiet-zone enabled=&quot;false&quot;&gt;&lt;/barcode:quiet-zone&gt;
+                                                                    &lt;barcode:checksum&gt;ignore&lt;/barcode:checksum&gt;
+                                                                    &lt;barcode:module-width&gt;0.30mm&lt;/barcode:module-width&gt;
+                                                                    &lt;barcode:human-readable&gt;
+                                                                      &lt;barcode:placement&gt;bottom&lt;/barcode:placement&gt;
+                                                                      &lt;barcode:font-size&gt;12pt&lt;/barcode:font-size&gt;
+                                                                    &lt;/barcode:human-readable&gt;
+                                                                &lt;/barcode:code39&gt;
+                                                                &lt;barcode:quiet-zone enabled=&quot;false&quot;/&gt;
+                                                            &lt;/barcode:barcode&gt;
+                                                        &lt;/fo:instream-foreign-object&gt;
+                                                    &lt;/fo:block&gt;
+                                                    &lt;fo:block font-size=&quot;6pt&quot; font-weight=&quot;bold&quot;&gt;
+                                                        &lt;xsl:value-of select=&quot;lostAndFound&quot;/&gt;
+                                                    &lt;/fo:block&gt;
+                                                &lt;/fo:block-container&gt;
+                                            &lt;/fo:block-container&gt;
+                                        &lt;/fo:block&gt;
+                                    &lt;/fo:table-cell&gt;
+                                    &lt;fo:table-cell border=&quot;1pt dashed grey&quot; display-align=&quot;before&quot;&gt;
+                                        &lt;fo:block text-align=&quot;center&quot; start-indent=&quot;0mm&quot; margin-top=&quot;5mm&quot;&gt;
+                                            &lt;fo:block-container&gt;
+                                                &lt;fo:block-container position=&quot;absolute&quot;&gt;
+                                                    &lt;fo:block&gt;
+                                                        &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                            &lt;fo:table-column column-width=&quot;100%&quot;/&gt;
+                                                            &lt;fo:table-body display-align=&quot;center&quot;&gt;
+                                                                &lt;fo:table-row&gt;
+                                                                    &lt;fo:table-cell&gt;
+                                                                        &lt;fo:block text-align=&quot;center&quot; display-align=&quot;center&quot;&gt;
+                                                                            &lt;fo:external-graphic
+                                                                                    src=&quot;url(&apos;{$contextPath}/moduleResources/idcards/path_logo.png&apos;)&quot;
+                                                                                    scaling=&quot;uniform&quot;
+                                                                                    content-height=&quot;12mm&quot;
+                                                                                    content-width=&quot;scale-to-fit&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                        &lt;fo:block font-weight=&quot;bold&quot; font-size=&quot;12pt&quot;&gt;
+                                                                            &lt;xsl:value-of select=&quot;name&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                        &lt;fo:block font-weight=&quot;bold&quot; font-size=&quot;12pt&quot; &gt;
+                                                                            &lt;xsl:value-of select=&quot;id&quot;/&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                       &lt;fo:block font-size=&quot;8pt&quot; font-weight=&quot;bold&quot;&gt;
+                                                                            &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                                                &lt;fo:table-column column-width=&quot;30%&quot; /&gt;
+                                                                                &lt;fo:table-column column-width=&quot;30%&quot; /&gt;
+                                                                                &lt;fo:table-column column-width=&quot;12%&quot; /&gt;
+                                                                                &lt;fo:table-column column-width=&quot;28%&quot; /&gt;
+                                                                                &lt;fo:table-body&gt;
+                                                                                    &lt;fo:table-row height=&quot;3.5mm&quot;&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Birthdate:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;birthdate&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Gender:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;gender&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                &lt;/fo:table-body&gt;
+                                                                            &lt;/fo:table&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                        &lt;fo:block font-size=&quot;8pt&quot; font-weight=&quot;bold&quot; display-align=&quot;center&quot;&gt;
+                                                                            &lt;fo:table table-layout=&quot;fixed&quot;&gt;
+                                                                                &lt;fo:table-column column-width=&quot;30%&quot;/&gt;
+                                                                                &lt;fo:table-column column-width=&quot;70%&quot;/&gt;
+                                                                                &lt;fo:table-body&gt;
+                                                                                    &lt;fo:table-row height=&quot;3.5mm&quot;&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Location:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-top=&quot;0mm&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;location&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Sublocation:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;subLocation&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row height=&quot;3.5mm&quot;&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Mobile Phone:
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                                &lt;xsl:value-of select=&quot;phone&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                    &lt;fo:table-row height=&quot;3.5mm&quot;&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;right&quot;
+                                                                                                    font-style=&quot;italic&quot;
+                                                                                                    font-size=&quot;6pt&quot;
+                                                                                                    color=&quot;black&quot;&gt;
+                                                                                                Previous Medical Identifier(s):
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                        &lt;fo:table-cell&gt;
+                                                                                            &lt;fo:block text-align=&quot;left&quot;
+                                                                                                    display-align=&quot;after&quot;
+                                                                                                    margin-top=&quot;2mm&quot;
+                                                                                                    margin-left=&quot;2mm&quot;&gt;
+                                                                                            &lt;xsl:value-of select=&quot;prevIds&quot;/&gt;
+                                                                                            &lt;/fo:block&gt;
+                                                                                        &lt;/fo:table-cell&gt;
+                                                                                    &lt;/fo:table-row&gt;
+                                                                                &lt;/fo:table-body&gt;
+                                                                            &lt;/fo:table&gt;
+                                                                        &lt;/fo:block&gt;
+                                                                    &lt;/fo:table-cell&gt;
+                                                                &lt;/fo:table-row&gt;
+                                                            &lt;/fo:table-body&gt;
+                                                        &lt;/fo:table&gt;
+                                                    &lt;/fo:block&gt;
+                                                &lt;/fo:block-container&gt;
+                                            &lt;/fo:block-container&gt;
+                                        &lt;/fo:block&gt;
+                                    &lt;/fo:table-cell&gt;
+                            &lt;/fo:table-row&gt;
+                        &lt;/xsl:for-each&gt;
+                    &lt;/fo:table-body&gt;
+                &lt;/fo:table&gt;
+            &lt;/fo:block&gt;
+        &lt;/fo:flow&gt;
+      &lt;/fo:page-sequence&gt;
+    &lt;/fo:root&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;" creator="1" date_created="2009-03-25 18:15:00.0" changed_by="1" date_changed="2009-03-25 18:15:00.0"/>
+
+</dataset>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <!-- Important to keep baseURL element on one line with no spaces. -->
+    <baseURL>$!{baseURL}</baseURL>
+    <cardName>PATH Card</cardName>
+    <lostAndFound>If found return to: Teaching and Referring Hospital, Eldoret, Kenya</lostAndFound>
+    <page>
+        #foreach ($elem in $identifiers)
+            #if ($velocityCount < $identifiers.size())
+                #set ($mod = $velocityCount % 2)
+                <!-- print two columns -->
+                #if ($mod == 1)
+                    #set ($left = $velocityCount - 1)
+                    <row>
+                        <col>${identifiers.get($left)}</col>
+                        <col>${identifiers.get($velocityCount)}</col>
+                    </row>
+                #else
+                    <!-- print one column for the last element -->
+                    #if ($velocityCount == $identifiers.size() - 1)
+                        #set ($last = $identifiers.size() - 1)
+                        <row>
+                            <col>${identifiers.get($last)}</col>
+                        </row>
+                    #end
+                #end
+            #end
+        #end
+    </page>
+</doc>

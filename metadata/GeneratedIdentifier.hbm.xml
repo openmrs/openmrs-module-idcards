@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.idcards">
+
+	<class name="GeneratedIdentifier" table="idcards_generated_identifier" batch-size="500">
+
+		<id name="id" type="int" column="id"
+			unsaved-value="0">
+				<generator class="assigned" />
+		</id>
+		
+		<many-to-one name="generator" class="org.openmrs.User" not-null="true"/>
+
+		<property name="dateGenerated" type="java.util.Date" column="date_generated" not-null="true" length="19" />
+
+		<property name="printed" type="boolean" not-null="true" length="1" />
+		
+		<many-to-one name="printedBy" class="org.openmrs.User" column="printed_by" not-null="false"/>
+
+		<property name="datePrinted" type="java.util.Date" column="date_printed" length="19" not-null="false"/>
+		
+		<many-to-one name="printedTemplate" column="printed_template_id" class="IdcardsTemplate" not-null="false"/>
+
+	</class>
+</hibernate-mapping>

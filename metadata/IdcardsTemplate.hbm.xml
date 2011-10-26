@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.idcards">
+
+	<class name="IdcardsTemplate" table="idcards_template">
+
+		<id name="templateId" type="int" column="template_id"
+			unsaved-value="0">
+				<generator class="native" />
+		</id>
+
+		<property name="name" type="java.lang.String" not-null="true" length="255" />
+
+		<property name="type" type="java.lang.String" not-null="false" length="25" />
+
+		<property name="description" type="java.lang.String" not-null="true" length="16777215" />
+
+		<property name="xml" type="java.lang.String"
+			not-null="true" length="16777215" />
+
+		<property name="xslt" type="java.lang.String"
+			not-null="true" length="16777215" />
+
+		<many-to-one name="creator" class="org.openmrs.User" not-null="true">
+			<column name="creator" />
+		</many-to-one>
+
+		<property name="dateCreated" type="java.util.Date"
+			column="date_created" not-null="true" length="19" />
+
+		<many-to-one name="changedBy" class="org.openmrs.User" not-null="true">
+			<column name="changed_by" />
+		</many-to-one>
+
+		<property name="dateChanged" type="java.util.Date"
+			column="date_changed" not-null="true" length="19" />
+
+	</class>
+</hibernate-mapping>

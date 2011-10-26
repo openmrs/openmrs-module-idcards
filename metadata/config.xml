@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//OpenMRS//DTD OpenMRS Config 1.0//EN" "http://resources.openmrs.org/doctype/config-1.0.dtd">
+
+<module configVersion="1.0">
+	
+	<!-- Base Module Properties -->
+	<id>idcards</id>
+	<name>Id Cards</name>
+	<version>1.3.1</version>
+	<package>org.openmrs.module.idcards</package>
+	<author>Brian McKown</author>
+	<description>
+			See <a href="http://openmrs.org/wiki/Id_Cards_Module">http://openmrs.org/wiki/Id_Cards_Module</a> for more information
+	</description>
+
+	<activator>org.openmrs.module.idcards.IdcardsActivator</activator>
+	
+	<updateURL>https://dev.openmrs.org/modules/download/idcards/update.rdf</updateURL>
+	<!-- /Base Module Properties -->
+	
+	<require_version>1.3.0.09.4359</require_version>
+	
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>org.openmrs.module.idcards.extension.html.AdminExt</class>
+	</extension>
+	
+    <privilege>
+        <name>Pre-Generate Random Patient Identifiers</name>
+        <description>Able to pre-generate a set of random patient identifiers</description>
+    </privilege>
+    
+    <privilege>
+        <name>Manage Id Card Templates</name>
+        <description>Able to modify the templates available for id card generation</description>
+    </privilege>
+	
+    <privilege>
+        <name>Print Id Cards</name>
+        <description>Able to print empty id cards with new identifiers to be filled out later.</description>
+    </privilege>
+    
+    <privilege>
+        <name>Reprint Id Cards</name>
+        <description>Able to reprint id cards for existing patients.</description>
+    </privilege>
+	
+	<globalProperty>
+		<property>idcards.generateMin</property>
+		<defaultValue>1000</defaultValue>
+		<description>
+			When generating new MRNs on the fly on the "Print Empty Idcards" page, this value is the 
+			lower end of the range within which MRNs will be randomly created
+		</description>
+	</globalProperty>
+	
+	<globalProperty>
+		<property>idcards.generateMax</property>
+		<defaultValue>5000</defaultValue>
+		<description>
+			When generating new MRNs on the fly on the "Print Empty Idcards" page, this value is the 
+			upper end of the range within which MRNs will be randomly created
+		</description>
+	</globalProperty>
+	
+	<globalProperty>
+		<property>idcards.enableIdentifierGeneration</property>
+		<defaultValue>true</defaultValue>
+		<description>
+			Valid values are 'true' and 'false'.  If 'false', the user interface will hide features that allow for identifier generation
+			by the idcards module.  This might be useful if identifier generation is managed independently from this module.
+		</description>
+	</globalProperty>
+	
+	<globalProperty>
+		<property>idcards.enablePrintingUploadedIdentifiers</property>
+		<defaultValue>false</defaultValue>
+		<description>
+			Valid values are 'true' and 'false'.  If 'true', the user interface will provide a means for printing from a file
+			of uploaded identifiers.  This enables identifier generation to occur independently from printing of new cards.
+		</description>
+	</globalProperty>
+	
+    <!-- Internationalization -->
+	<!-- All message codes should start with moduleId.* -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+
+    <!-- Servlets -->
+    <!-- Accessed through the url /pageContext()/moduleServlet/<moduleId>/<servlet-name> -->
+    <servlet>
+        <servlet-name>printEmpty</servlet-name>
+        <servlet-class>org.openmrs.module.idcards.web.servlet.PrintEmptyIdcardsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>print</servlet-name>
+        <servlet-class>org.openmrs.module.idcards.web.servlet.PrintIdcardsServlet</servlet-class>
+    </servlet>
+    <!-- /Servlets -->
+
+    <mappingFiles>
+        IdcardsTemplate.hbm.xml
+        GeneratedIdentifier.hbm.xml
+    </mappingFiles>
+	
+	<!--
+    <netbeans>
+        <tomcat>/home/bmckown/.netbeans/6.5m1/apache-tomcat-6.0.16_base</tomcat>
+    </netbeans>
+    
+    <eclipse>
+        <tomcat>/opt/tomcat</tomcat>
+    </eclipse>
+	-->
+	
+</module>
+
