@@ -65,35 +65,35 @@ import org.springframework.web.bind.ServletRequestUtils;
  * file with the numbers listed.
  */
 public class PrintEmptyIdcardsServlet extends HttpServlet {
-	
+
 	private static Log log = LogFactory.getLog(PrintEmptyIdcardsServlet.class);
-	
+
 	public static final long serialVersionUID = 12312381L;
-	
+
 	private static IdcardsService getIdcardsService() {
 		return (IdcardsService) Context.getService(IdcardsService.class);
 	}
-	
+
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		Integer mrnCount = ServletRequestUtils.getRequiredIntParameter(request, "mrn_count");
 		Integer templateId = ServletRequestUtils.getIntParameter(request, "templateId", 1);
 		String generatedMRNs = ServletRequestUtils.getStringParameter(request, "generated_mrns", "none");
 		String password = ServletRequestUtils.getStringParameter(request, "pdf_password");
 		if (!StringUtils.hasLength(password))
 			throw new ServletException("A non-empty password is required.");
-		
+
 		IdcardsTemplate card = getIdcardsService().getIdcardsTemplate(templateId);
-		
+
 		StringBuffer requestURL = request.getRequestURL();
 		String baseURL = requestURL.substring(0, requestURL.indexOf("/moduleServlet"));
-		
+
 		List<Integer> identifiers = null;
-		
+
 		if ("none".equals(generatedMRNs)) {
 			identifiers = Collections.nCopies(mrnCount, 0);
 		} else if ("pregenerated".equals(generatedMRNs)){
@@ -106,15 +106,15 @@ public class PrintEmptyIdcardsServlet extends HttpServlet {
 		}
 		else
 			throw new ServletException("Invalid choice for 'generatedMRNs' parameter");
-		
-		
+
+
 		generateOutput(card, baseURL, response, identifiers, password);
-		
+
 	}
-	
+
 	/**
 	 * Write the pdf to the given response
-	 * 
+	 *
 	 * @param card
 	 * @param baseURL
 	 * @param request
@@ -122,9 +122,9 @@ public class PrintEmptyIdcardsServlet extends HttpServlet {
 	 * @param useGeneratedMRNs
 	 * @param password the password to encrypt the pdf with. If null, no encryption is done
 	 */
-	public static void generateOutput(IdcardsTemplate card, String baseURL, HttpServletResponse response, 
+	public static void generateOutput(IdcardsTemplate card, String baseURL, HttpServletResponse response,
 	                                  List<Integer> identifiers, String password) throws ServletException, IOException {
-		
+
 		// add check digits to the identifiers
 		List<String> checkdigitedIdentifiers = new ArrayList<String>(identifiers.size());
 		try {
@@ -135,7 +135,7 @@ public class PrintEmptyIdcardsServlet extends HttpServlet {
 		catch (Exception e) {
 			throw new ServletException("Unable to generate check digit on given identifier", e);
 		}
-		
+
 		generateOutputForIdentifiers(card, baseURL, response, checkdigitedIdentifiers, password);
 	}
 
@@ -143,15 +143,15 @@ public class PrintEmptyIdcardsServlet extends HttpServlet {
 	 * Write the pdf to the given response
 	 */
 	@SuppressWarnings("unchecked")
-	public static void generateOutputForIdentifiers(IdcardsTemplate card, String baseURL, HttpServletResponse response, 
+	public static void generateOutputForIdentifiers(IdcardsTemplate card, String baseURL, HttpServletResponse response,
 													List<String> identifiers, String password) throws ServletException, IOException {
-		
+
 		Properties props = new Properties();
 		props.setProperty(RuntimeConstants.RESOURCE_LOADER, "class");
 		props.setProperty("class.resource.loader.description", "VelocityClasspathResourceLoader");
 		props.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 		props.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.NullLogSystem");
-		
+
 		// do the velocity magic
 		Writer writer = new StringWriter();
 		try {
@@ -185,40 +185,58 @@ public class PrintEmptyIdcardsServlet extends HttpServlet {
 		finally {
 			System.gc();
 		}
-		
+
 		try {
 			//Setup a buffer to obtain the content length
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			
+
 			FopFactory fopFactory = FopFactory.newInstance();
+
+			//fopFactory supports customization with a config file
+			//Load the config file before creating the user agent.
+			String userConfigFile = Context.getAdministrationService().getGlobalProperty("idcards.fopConfigFilePath");
+			if( userConfigFile != null ){
+				try {
+					fopFactory.setUserConfig( new java.io.File(userConfigFile) );
+					log.debug("Successfully loaded config file |" + userConfigFile + "|");
+
+				} catch( java.io.IOException e){
+					log.error("Could not load fopFactory user config file at " +
+							userConfigFile + ". Error message:" + e.getMessage());
+				} catch( org.xml.sax.SAXException e ){
+					log.error("Could not parse fopFactory user config file at  " +
+							userConfigFile + ". Error message:" + e.getMessage());
+				}
+			}
+
 			FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
 			foUserAgent.getRendererOptions().put("encryption-params", new PDFEncryptionParams(password, null, true, false, false, false));
-			
+
 			//Setup FOP
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
-			
+
 			//Setup Transformer
 			Source xsltSrc = new StreamSource(new StringReader(card.getXslt()));
 			TransformerFactory tFactory = TransformerFactory.newInstance();
 			Transformer transformer = tFactory.newTransformer(xsltSrc);
-			
+
 			//Make sure the XSL transformation's result is piped through to FOP
 			Result res = new SAXResult(fop.getDefaultHandler());
-			
+
 			//Setup input
 			String xml = writer.toString();
 			Source src = new StreamSource(new StringReader(xml));
-			
+
 			//Start the transformation and rendering process
 			transformer.transform(src, res);
-			
+
 			//Prepare response
 			String time = new SimpleDateFormat("yyyy-MM-dd_Hms").format(new Date());
 			String filename = card.getName().replace(" ", "_") + "-" + time + ".pdf";
 			response.setHeader("Content-Disposition", "attachment; filename=" + filename);
 			response.setContentType("application/pdf");
 			response.setContentLength(out.size());
-			
+
 			//Send content to Browser
 			ServletOutputStream outputStream = response.getOutputStream();
 			outputStream.write(out.toByteArray());

@@ -52,20 +52,20 @@ import org.springframework.web.bind.ServletRequestUtils;
  * those patients have is used as the identifier on the card.
  */
 public class PrintIdcardsServlet extends HttpServlet {
-	
+
 	public static final long serialVersionUID = 123423L;
-	
+
 	private static Log log = LogFactory.getLog(PrintIdcardsServlet.class);
-	
+
 	private static IdcardsService getIdcardsService() {
 		return (IdcardsService) Context.getService(IdcardsService.class);
 	}
-	
+
 	/**
 	 * Reprint Id Cards.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		// get the patient set
 		Integer locationId = ServletRequestUtils.getIntParameter(request, "locationId", 0);
 		Integer patientId = ServletRequestUtils.getIntParameter(request, "patientId", 0);
@@ -74,7 +74,7 @@ public class PrintIdcardsServlet extends HttpServlet {
 		Integer cohortId = ServletRequestUtils.getIntParameter(request, "cohortId", -1);
 		String cohortDefinition = ServletRequestUtils.getStringParameter(request, "cohortDefinitionId", null);
 		Integer cardTemplateId = ServletRequestUtils.getIntParameter(request, "cardTemplateId", 1);
-		
+
 		Cohort cohort = new Cohort();
 		PatientSetService pss = Context.getPatientSetService();
 		if (locationId != 0)
@@ -105,19 +105,19 @@ public class PrintIdcardsServlet extends HttpServlet {
 		} else if (cohortId != -1) {
 			cohort = Context.getCohortService().getCohort(cohortId);
 		}
-		
+
 		IdcardsTemplate card = getIdcardsService().getIdcardsTemplate(cardTemplateId);
-		
+
 		StringBuffer requestURL = request.getRequestURL();
 		String baseURL = requestURL.substring(0, requestURL.indexOf("/moduleServlet"));
-		
+
 		generateOutput(card, baseURL, cohort, response);
-		
+
 	}
-	
+
 	/**
 	 * Writes the pdf to the given response
-	 * 
+	 *
 	 * @param card
 	 * @param baseURL
 	 * @param cohort
@@ -135,7 +135,7 @@ public class PrintIdcardsServlet extends HttpServlet {
 		props.setProperty("class.resource.loader.class",
 		    "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 		props.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.NullLogSystem");
-		
+
 		Writer writer = new StringWriter();
 		try {
 			// Allow images to be served from Unix servers.
@@ -170,40 +170,59 @@ public class PrintIdcardsServlet extends HttpServlet {
 			functions.clear();
 			System.gc();
 		}
-		
+
 		try {
 			//Setup a buffer to obtain the content length
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			
+
 			FopFactory fopFactory = FopFactory.newInstance();
+
+			//fopFactory supports customization with a config file
+			//Load the config file before creating the user agent.
+			String userConfigFile = Context.getAdministrationService().getGlobalProperty("idcards.fopConfigFilePath");
+			if( userConfigFile != null ){
+				try {
+					fopFactory.setUserConfig( new java.io.File(userConfigFile) );
+					log.debug("Successfully loaded config file |" + userConfigFile + "|");
+
+				} catch( java.io.IOException e){
+					log.error("Could not load fopFactory user config file at " +
+							userConfigFile + ". Error message:" + e.getMessage());
+				} catch( org.xml.sax.SAXException e ){
+					log.error("Could not parse fopFactory user config file at  " +
+							userConfigFile + ". Error message:" + e.getMessage());
+				}
+			}
+
 			FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
 			// configure foUserAgent as desired (this will let us set creator, etc.)
-			
+
 			//Setup FOP
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
-			
+
 			//Setup Transformer
 			Source xsltSrc = new StreamSource(new StringReader(card.getXslt()));
 			TransformerFactory tFactory = TransformerFactory.newInstance();
 			Transformer transformer = tFactory.newTransformer(xsltSrc);
-			
+
 			//Make sure the XSL transformation's result is piped through to FOP
 			Result res = new SAXResult(fop.getDefaultHandler());
-			
+
 			//Setup input
 			String xml = writer.toString();
 			Source src = new StreamSource(new StringReader(xml));
-			
+
 			//Start the transformation and rendering process
 			transformer.transform(src, res);
-			
+
 			//Prepare response
 			String time = new SimpleDateFormat("yyyyMMdd_Hm").format(new Date());
 			String filename = card.getName().replace(" ", "_") + "-" + time + ".pdf";
 			response.setHeader("Content-Disposition", "attachment; filename=" + filename);
 			response.setContentType("application/pdf");
+			response.setCharacterEncoding("UTF-8");
 			response.setContentLength(out.size());
-			
+
 			//Send content to Browser
 			ServletOutputStream outputStream = response.getOutputStream();
 			outputStream.write(out.toByteArray());
@@ -218,17 +237,17 @@ public class PrintIdcardsServlet extends HttpServlet {
 		catch (TransformerException e) {
 			throw new ServletException("Error generating report", e);
 		}
-		
+
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		doGet(request, response);
 	}
-	
+
 	/**
 	 * Gets an example xslt as a String. The xslt is borrowed from an example on the FOP website:
 	 * http://xmlgraphics.apache.org/fop/quickstartguide.html#essentials
-	 * 
+	 *
 	 * @return an xslt as a String
 	 */
 	public String getXslt() {
@@ -257,5 +276,5 @@ public class PrintIdcardsServlet extends HttpServlet {
 		xslt += "</xsl:stylesheet>";
 		return xslt;
 	}
-	
+
 }
