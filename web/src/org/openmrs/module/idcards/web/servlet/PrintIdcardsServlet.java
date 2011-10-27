@@ -185,11 +185,8 @@ public class PrintIdcardsServlet extends HttpServlet {
 					fopFactory.setUserConfig( new java.io.File(userConfigFile) );
 					log.debug("Successfully loaded config file |" + userConfigFile + "|");
 
-				} catch( java.io.IOException e){
-					log.error("Could not load fopFactory user config file at " +
-							userConfigFile + ". Error message:" + e.getMessage());
-				} catch( org.xml.sax.SAXException e ){
-					log.error("Could not parse fopFactory user config file at  " +
+				} catch( Exception e){
+					log.error("Could not initialize fopFactory user config with file at " +
 							userConfigFile + ". Error message:" + e.getMessage());
 				}
 			}
@@ -220,7 +217,6 @@ public class PrintIdcardsServlet extends HttpServlet {
 			String filename = card.getName().replace(" ", "_") + "-" + time + ".pdf";
 			response.setHeader("Content-Disposition", "attachment; filename=" + filename);
 			response.setContentType("application/pdf");
-			response.setCharacterEncoding("UTF-8");
 			response.setContentLength(out.size());
 
 			//Send content to Browser
