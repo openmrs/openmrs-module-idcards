@@ -9,12 +9,12 @@
 	<name>Id Cards</name>
 	<description>Parent project for Id Cards</description>
 
-	<url>http://openmrs.org</url>
+	<url>https://wiki.openmrs.org/x/bg8z</url>
 
 	<scm>
-		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/idcards/trunk/</connection>
-		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/idcards/trunk/</developerConnection>
-		<url>http://svn.openmrs.org/openmrs-modules/idcards/trunk/</url>
+		<connection>scm:git:https://github.com/openmrs/openmrs-module-idcards/</connection>
+		<developerConnection>scm:git:https://github.com/openmrs/openmrs-module-idcards/</developerConnection>
+		<url>https://github.com/openmrs/openmrs-module-idcards/</url>
 	</scm>
 
 	<modules>
