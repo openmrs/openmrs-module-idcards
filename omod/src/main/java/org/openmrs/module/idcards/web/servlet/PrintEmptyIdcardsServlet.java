@@ -56,7 +56,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idcards.IdcardsService;
 import org.openmrs.module.idcards.IdcardsTemplate;
-import org.openmrs.util.OpenmrsUtil;
+import org.openmrs.module.idcards.IdcardsUtil;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.ServletRequestUtils;
 
@@ -129,7 +129,7 @@ public class PrintEmptyIdcardsServlet extends HttpServlet {
 		List<String> checkdigitedIdentifiers = new ArrayList<String>(identifiers.size());
 		try {
 			for (Integer id : identifiers) {
-				checkdigitedIdentifiers.add(id + "-" + OpenmrsUtil.getCheckDigit(id.toString()));
+				checkdigitedIdentifiers.add(id + "-" + IdcardsUtil.getCheckDigit(id.toString()));
 			}
 		}
 		catch (Exception e) {

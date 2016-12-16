@@ -94,7 +94,7 @@ public interface IdcardsService {
 	 * @return number of rows where printed == false
 	 * @throws APIException
 	 */
-	public Integer getNumberOfUnprintedGeneratedIdentifiers() throws APIException;
+	public Long getNumberOfUnprintedGeneratedIdentifiers() throws APIException;
 	
 	/**
 	 * Returns the rows in generated_identifiers that have printed = true

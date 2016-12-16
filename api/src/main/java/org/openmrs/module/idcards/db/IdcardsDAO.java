@@ -50,7 +50,7 @@ public interface IdcardsDAO {
 	/**
 	 * @see org.openmrs.module.idcards.IdcardsService#getNumberOfUnprintedGeneratedIdentifiers()
 	 */
-	public Integer getNumberOfUnprintedGeneratedIdentifiers() throws DAOException;
+	public Long getNumberOfUnprintedGeneratedIdentifiers() throws DAOException;
 	
 	/**
 	 * @see org.openmrs.module.idcards.IdcardsService#printGeneratedIdentifiers(int,IdcardsTemplate)

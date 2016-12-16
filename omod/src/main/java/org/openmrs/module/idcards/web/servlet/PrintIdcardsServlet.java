@@ -40,11 +40,11 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
-import org.openmrs.api.PatientSetService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idcards.IdcardsExportFunctions;
 import org.openmrs.module.idcards.IdcardsService;
 import org.openmrs.module.idcards.IdcardsTemplate;
+import org.openmrs.module.reportingcompatibility.service.ReportingCompatibilityService;
 import org.springframework.web.bind.ServletRequestUtils;
 
 /**
@@ -76,9 +76,8 @@ public class PrintIdcardsServlet extends HttpServlet {
 		Integer cardTemplateId = ServletRequestUtils.getIntParameter(request, "cardTemplateId", 1);
 
 		Cohort cohort = new Cohort();
-		PatientSetService pss = Context.getPatientSetService();
 		if (locationId != 0)
-			cohort = pss.getPatientsHavingLocation(locationId);
+			cohort = Context.getService(ReportingCompatibilityService.class).getPatientsHavingLocation(locationId);
 		else if (patientId != 0)
 			cohort.addMember(patientId);
 		else if (patientIdsString.length() > 0) {
@@ -167,7 +166,7 @@ public class PrintIdcardsServlet extends HttpServlet {
 			log.error("Error initializing Velocity engine", e);
 		}
 		finally {
-			functions.clear();
+			//functions.clear();
 			System.gc();
 		}
 

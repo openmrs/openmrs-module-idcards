@@ -1,13 +1,12 @@
 package org.openmrs.module.idcards;
 
-import org.openmrs.reporting.export.DataExportFunctions;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.Patient;
-import org.openmrs.api.context.Context;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.ArrayList;
+
+import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.module.reportingcompatibility.reporting.export.DataExportFunctions;
 
 /**
  * The contents of this file are subject to the OpenMRS Public License

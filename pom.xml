@@ -92,7 +92,7 @@ lib/batik-all-1.6.jar
 	</dependencyManagement>
 
 	<properties>
-		<openMRSVersion>1.11.7</openMRSVersion>
+		<openMRSVersion>2.0.1</openMRSVersion>
 	</properties>
 
 	<build>

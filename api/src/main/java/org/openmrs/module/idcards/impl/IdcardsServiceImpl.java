@@ -99,7 +99,7 @@ public class IdcardsServiceImpl implements IdcardsService {
 	/**
 	 * @see org.openmrs.module.idcards.IdcardsService#getNumberOfUnprintedGeneratedIdentifiers()
 	 */
-	public Integer getNumberOfUnprintedGeneratedIdentifiers() throws APIException {
+	public Long getNumberOfUnprintedGeneratedIdentifiers() throws APIException {
 		return dao.getNumberOfUnprintedGeneratedIdentifiers();
 	}
 	
@@ -107,7 +107,7 @@ public class IdcardsServiceImpl implements IdcardsService {
 	 * @see org.openmrs.module.idcards.IdcardsService#printGeneratedIdentifiers(int,IdcardsTemplate)
 	 */
 	public List<Integer> printGeneratedIdentifiers(int quantityToPrint, IdcardsTemplate template) throws APIException {
-		Integer unprintedQuantity = getNumberOfUnprintedGeneratedIdentifiers();
+		Long unprintedQuantity = getNumberOfUnprintedGeneratedIdentifiers();
 		if (quantityToPrint > unprintedQuantity)
 			throw new APIException("There are only " + unprintedQuantity
 			        + " unprinted identifiers that have been generated and you requested to print " + quantityToPrint

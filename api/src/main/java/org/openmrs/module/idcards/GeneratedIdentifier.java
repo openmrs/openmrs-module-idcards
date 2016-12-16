@@ -72,7 +72,7 @@ public class GeneratedIdentifier {
 	public String getIdentifier() {
 		int checkdigit;
 		try {
-			checkdigit = OpenmrsUtil.getCheckDigit(String.valueOf(id));
+			checkdigit = IdcardsUtil.getCheckDigit(String.valueOf(id));
 		}
 		catch (Exception e) {
 			throw new APIException("Unable to get checkdigit for: " + id, e);

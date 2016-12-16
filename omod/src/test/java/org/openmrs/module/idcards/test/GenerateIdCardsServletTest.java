@@ -1,30 +1,43 @@
 package org.openmrs.module.idcards.test;
 
-import org.apache.fop.apps.*;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.app.Velocity;
-import org.junit.Test;
-import org.junit.Before;
-import org.openmrs.api.APIException;
-import org.openmrs.api.context.Context;
-import org.openmrs.util.OpenmrsUtil;
-import org.openmrs.reporting.export.DataExportFunctions;
-import org.openmrs.Cohort;
-import org.openmrs.module.idcards.IdcardsTemplate;
-import org.openmrs.module.idcards.IdcardsExportFunctions;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
-
-import javax.xml.transform.*;
-import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.stream.StreamSource;
-import javax.servlet.ServletException;
-import java.io.*;
-import java.util.List;
-import java.util.Collections;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import javax.servlet.ServletException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.apache.fop.apps.FOPException;
+import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.MimeConstants;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.junit.Before;
+import org.junit.Test;
+import org.openmrs.Cohort;
+import org.openmrs.api.APIException;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.idcards.IdcardsExportFunctions;
+import org.openmrs.module.idcards.IdcardsUtil;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.util.OpenmrsUtil;
 
 /**
  * This class tests the use of FOP to create a pdf file from an xslt and an xml.
@@ -79,7 +92,7 @@ public class GenerateIdCardsServletTest extends BaseModuleContextSensitiveTest {
                 Integer idNumber = Integer.valueOf(i);
                 int checkdigit;
                 try {
-                    checkdigit = OpenmrsUtil.getCheckDigit(idNumber.toString());
+                    checkdigit = IdcardsUtil.getCheckDigit(idNumber.toString());
                 }
                 catch (Exception e) {
                     throw new ServletException(e);

@@ -210,7 +210,7 @@ public class IdcardsServiceDatabaseTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void shouldGetNumberOfUnprintedIdentifiers() {
 		IdcardsService service = (IdcardsService) Context.getService(IdcardsService.class);
-		Integer unprintedQuantity = service.getNumberOfUnprintedGeneratedIdentifiers();
+		Long unprintedQuantity = service.getNumberOfUnprintedGeneratedIdentifiers();
 		Assert.assertEquals(3, unprintedQuantity.intValue());
 	}
 	
@@ -281,8 +281,8 @@ public class IdcardsServiceDatabaseTest extends BaseModuleContextSensitiveTest {
 	public void shouldGetPersonAddressFromDataExportFuctions() {
 		IdcardsExportFunctions fn = new IdcardsExportFunctions(4);
 		PersonAddress address = fn.getPatient().getPersonAddress();
-		System.out.println("region " + address.getRegion());
-		System.out.println("subregion " + address.getSubregion());
+		System.out.println("region " + address.getAddress6());
+		System.out.println("subregion " + address.getAddress5());
 		assertNotNull(address);
 	}
 	

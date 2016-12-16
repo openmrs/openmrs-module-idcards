@@ -24,18 +24,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.CacheMode;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.MySQLDialect;
-import org.hibernate.engine.SessionFactoryImplementor;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.type.StandardBasicTypes;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.User;
@@ -122,9 +122,9 @@ public class HibernateIdcardsDAO implements IdcardsDAO {
 		String regex = "^" + tmp4.substring(1, tmp4.length() - 1) + "$";
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Patient.class);
 		criteria.createAlias("identifiers", "ids");
-		criteria.add(Restrictions.sqlRestriction("identifier rlike ?", regex, Hibernate.STRING));
+		criteria.add(Restrictions.sqlRestriction("identifier rlike ?", regex, StandardBasicTypes.STRING));
 		log.debug("Patient identifier regex" + regex);
-		log.debug("Hibernate.STRING: " + Hibernate.STRING.toString());
+		log.debug("StandardBasicTypes.STRING: " + StandardBasicTypes.STRING.toString());
 		return criteria.list();
 	}
 	
@@ -210,12 +210,12 @@ public class HibernateIdcardsDAO implements IdcardsDAO {
 	/**
 	 * @see org.openmrs.module.idcards.db.IdcardsDAO#getNumberOfUnprintedGeneratedIdentifiers()
 	 */
-	public Integer getNumberOfUnprintedGeneratedIdentifiers() throws DAOException {
+	public Long getNumberOfUnprintedGeneratedIdentifiers() throws DAOException {
 		Criteria crit = sessionFactory.getCurrentSession().createCriteria(GeneratedIdentifier.class);
 		crit.setProjection(Projections.count("printed"));
 		crit.add(Expression.eq("printed", false));
 		
-		return (Integer) crit.uniqueResult();
+		return (Long) crit.uniqueResult();
 	}
 	
 	/**

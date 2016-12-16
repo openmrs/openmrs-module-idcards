@@ -15,6 +15,7 @@ package org.openmrs.module.idcards.web.controller;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idcards.IdcardsService;
+import org.openmrs.module.reportingcompatibility.service.CohortService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class ReprintIdcardsFormController {
 	public String showPage(ModelMap model) throws Exception {
 		IdcardsService service = (IdcardsService) Context.getService(IdcardsService.class);
 		model.put("cardTemplates", service.getAllIdcardsTemplates());
-		model.put("cohortDefinitions", Context.getCohortService().getAllCohortDefinitions());
+		model.put("cohortDefinitions", Context.getService(CohortService.class).getAllCohortDefinitions());
 		model.put("cohorts", Context.getCohortService().getAllCohorts());
 		
 		return "/module/idcards/reprintIdcardsForm";
